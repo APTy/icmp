@@ -1,0 +1,19 @@
+[package]
+name = "icmp"
+version = "0.1.0"
+authors = ["Tyler Julian <trjulian@gmail.com>"]
+
+[lib]
+name = "libicmp"
+path = "src/lib.rs"
+
+[[bin]]
+name = "icmp"
+path = "src/main.rs"
+
+
+[dependencies]
+nix = "0.7.0"
+libc = "0.2"
+rand = "0.3"
+byteorder = "1.0.0"
