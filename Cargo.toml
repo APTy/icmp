@@ -1,6 +1,6 @@
 [package]
 name = "libicmp"
-version = "0.1.0"
+version = "0.1.1"
 description = "ICMP protocol support and implementations"
 authors = ["Tyler Julian <trjulian@gmail.com>"]
 license = "BSD-3-Clause"
