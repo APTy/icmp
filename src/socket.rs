@@ -94,6 +94,14 @@ impl RawSocket {
     }
 }
 
+impl Drop for RawSocket {
+    fn drop(&mut self) {
+        unsafe {
+            libc::close(self.0);
+        }
+    }
+}
+
 fn into_inner(s: &SocketAddr) -> (*const libc::sockaddr, libc::socklen_t) {
     match *s {
         SocketAddr::V4(ref a) => {
@@ -102,5 +110,26 @@ fn into_inner(s: &SocketAddr) -> (*const libc::sockaddr, libc::socklen_t) {
         SocketAddr::V6(ref a) => {
             (a as *const _ as *const _, mem::size_of_val(a) as libc::socklen_t)
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::fs::read_dir;
+    use std::mem::drop;
+    use super::RawSocket;
+
+    #[test]
+    #[cfg(target_os = "linux")]
+    fn it_closes_sockets() {
+        let initial_descriptors = read_dir("/proc/self/fd").unwrap().count();
+
+        for _ in 0..5 {
+            drop(RawSocket::new().unwrap());
+        }
+
+        let final_descriptors = read_dir("/proc/self/fd").unwrap().count();
+
+        assert_eq!(initial_descriptors, final_descriptors);
     }
 }
