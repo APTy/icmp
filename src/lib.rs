@@ -16,12 +16,10 @@
 //! ## Examples
 //!
 //! ```
-//! extern crate libicmp;
-//!
 //! use libicmp::PingBuilder;
 //!
 //! let p = PingBuilder::new()
-//!     .host("8.8.8.8")
+//!     .host("127.0.0.1")
 //!     .num_pings(5)
 //!     .interval_secs(1)
 //!     .timeout_secs(5)
