@@ -4,6 +4,7 @@ version = "0.1.1"
 description = "ICMP protocol support and implementations"
 authors = ["Tyler Julian <trjulian@gmail.com>"]
 license = "BSD-3-Clause"
+repository = "https://github.com/APTy/icmp"
 
 [lib]
 name = "libicmp"
